@@ -10,3 +10,13 @@ CloudFoundry (Pivotal Web Service), Docker, Docker Compose, Swagger, Spring Clou
 
 ## Netflix Hystrix Dashboard
 ![Hystrix Dashboard](/images/Hystrix-Dashboard.png)
+
+## Using the application
+
+### Running on local m/c
+* You can build all the projects by running the `MvnPackageBuild.bat` at command prompt.
+* You can run all the microservices by running the `runMicroservices.bat` at command prompt.     
+
+### Running on local m/c using Docker and Docker Compose
+* You can build all the projects by running the `MvnPackageBuild.bat` at command prompt.
+* You can run all the microservices by running the `runMicroservices.bat` at command prompt.     
