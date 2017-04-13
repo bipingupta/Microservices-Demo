@@ -1,0 +1,10 @@
+---
+server:
+  port: 8002
+---
+spring:
+  application:
+    name: lucky-word-client
+  cloud:
+    config:
+      uri: http://user:password@localhost:8888

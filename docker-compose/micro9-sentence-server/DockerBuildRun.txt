@@ -1,0 +1,2 @@
+docker build -t bipin:sentence-composite .
+docker run -t –p 8020:8020 biping:sentence-composite

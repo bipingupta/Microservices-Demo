@@ -1,0 +1,2 @@
+docker build -t bipin:zipkin .
+docker run -t –p 9411:9411 bipin:zipkin

@@ -1,0 +1,16 @@
+# Properties active for ALL profiles:
+---
+server:
+  port: 9191
+  context-path: /oauth2server
+---
+spring:
+  application:
+    name: oauth2server
+---
+security:
+  user:
+    name: admin
+    password: secret
+  basic:
+    realm: Luke, I am the OAuth2 Server...

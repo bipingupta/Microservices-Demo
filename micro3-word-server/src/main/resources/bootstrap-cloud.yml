@@ -1,0 +1,51 @@
+# Allow Eureka to recognize two apps of the same type on the same host as separate instances:
+---
+spring:
+  cloud:
+    config:
+      fail-fast: true
+      uri: ${vcap.services.config-service.credentials.uri:https://config007.cfapps.io}
+---
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    service-url:
+      defaultZone: ${vcap.services.eureka.credentials.url:https://eureka007.cfapps.io/eureka/} 
+ 
+  instance:
+    nonSecurePort: 80
+    hostname: ${vcap.application.uris[0]}
+    metadataMap:
+       instanceId: ${vcap.application.instance_id}
+# Depending on which profile is active, the application gives 
+# itself a different name when registering with Eureka
+---
+spring:
+  profiles:
+    active: subject
+---
+spring:
+  profiles: subject
+  application:
+    name: subject
+---
+spring:
+  profiles: verb
+  application:
+    name: verb
+---
+spring:
+  profiles: article
+  application:
+    name: article
+---
+spring:
+  profiles: adjective
+  application:
+    name: adjective
+---
+spring:
+  profiles: noun
+  application:
+    name: noun

@@ -1,0 +1,10 @@
+# Properties active for ALL profiles:
+---
+server:
+  port: 8020
+---
+spring:
+  application:
+    name: sentence
+
+      

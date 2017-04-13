@@ -1,0 +1,14 @@
+# Note: all properties defined in this file are subject to replacement by the configuration server.
+---
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: http://${SERVER_IP:localhost}:8761/eureka/
+---
+words: fallback
+---
+spring:
+  profiles:
+    active: subject

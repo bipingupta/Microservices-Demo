@@ -1,0 +1,2 @@
+docker build -t bipin:adjective .
+docker run -t –p 8084:8084 bipin:adjective

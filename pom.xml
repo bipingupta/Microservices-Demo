@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.test</groupId>
+    <artifactId>Microservices-Demo</artifactId>
+    <version>1.0</version>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>micro1-eureka-server</module>
+        <module>micro2-config-server</module>
+        <module>micro3-word-server</module>
+        <module>micro4-sentence-server</module>
+		<module>micro5-zuul-server</module>
+		<module>micro6-turbine-server</module>
+		<module>micro7-zipkin-server</module>
+		<module>micro8-oauth2-server</module>
+		<module>micro9-oauth2-client</module>
+		<module>micro-luckyword-amqp</module>
+    </modules>
+
+</project>

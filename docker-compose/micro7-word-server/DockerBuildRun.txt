@@ -1,0 +1,2 @@
+docker build -t bipin:noun .
+docker run -t –p 8085:8085 bipin:noun

@@ -1,0 +1,36 @@
+---
+# Properties active for ALL profiles:
+server:
+  port: ${PORT:8761}
+ 
+eureka:
+  client: 
+    registerWithEureka: true
+    fetchRegistry: false
+    service-url:
+       defaultZone: http://${SERVER_IP:localhost}:${PORT:8761}/eureka/
+---   
+## defaultZone: http://${SERVER_IP:localhost}:8762/eureka/
+## primary, secondary, and tertiary illustrate running 3 intercommunicating instances.  This example has them running
+## side-by-side on localhost -- which is unrealistic in production -- but does illustrate how multiple instances collaborate.
+## Run by opening 3 separate command prompts:
+## java -jar -Dspring.profiles.active=secondary target/eureka-server-1.0.jar
+## java -jar -Dspring.profiles.active=tertiary target/eureka-server-1.0.jar
+
+spring:
+  profiles: secondary
+server:
+  port: 8762  
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+---
+spring:
+  profiles: tertiary
+server:
+  port: 8763  
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/,http://localhost:8762/eureka/

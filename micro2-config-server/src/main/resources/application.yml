@@ -1,0 +1,16 @@
+# Properties active for ALL profiles:
+---
+server:
+  port: ${PORT:8888}
+---
+spring:
+  cloud:
+    config:
+      fail-fast: true
+      server:
+        git:
+          uri: https://github.com/bipingupta/Microservices-Demo
+          searchPaths: ConfigData
+#          uri: file://D:/IBM/Workspace/SpringCloud/Microservices-Demo/ConfigData/Microservices-With-Spring-Student-Files
+#          searchPaths: ConfigData
+           
