@@ -18,7 +18,7 @@ CloudFoundry (Pivotal Web Service), Docker, Docker Compose, Swagger, Spring Clou
 * You can run all the microservices by running the `runMicroservices.bat` at command prompt.     
 
 ### Running on local m/c using Docker and Docker Compose :
-* Open Docker CLI from the Kitematic UI and then execute Docker commands, Otherwise u may get TLS issue.
+* Open **"Docker CLI"** from the Kitematic UI and then execute Docker commands, Otherwise u may face TLS cert issue.
 * Copy jars by running the `copyjars.cmd` at command prompt from inside docker-compose folder.
 * You can run all the microservices by running the following command.     
 docker-compose build
