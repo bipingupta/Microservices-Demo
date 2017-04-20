@@ -25,6 +25,10 @@ docker-compose build
 docker-compose up -d
 docker-compose start
 
+### Spring Boot Actuator :
+* http://localhost:port/actuator
+* Actuator points : actuator,mappings,trace,dump,autoconfig,health,info,logfile,metrics  
+
 ### OAuth 2 Undertstanding :
 * <a href="https://malalanayake.wordpress.com/tag/oauth-2-0-scenarios/">OAuth 2.0 scenarios</a>
 * <a href="https://aaronparecki.com/oauth-2-simplified/">OAuth 2 Simplified</a>
