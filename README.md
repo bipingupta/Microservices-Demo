@@ -26,7 +26,8 @@ docker-compose up -d
 docker-compose start
 
 ### Spring Boot Actuator :
-* http://localhost:port/actuator
+* Accessing Actuator : http:://localhost:8080/actuator
+* <a href="http://javabeat.net/spring-boot-actuator/">Actuator Help</a>
 * Actuator points : actuator,mappings,trace,dump,autoconfig,health,info,logfile,metrics  
 
 ### OAuth 2 Undertstanding :
