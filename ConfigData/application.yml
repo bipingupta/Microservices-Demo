@@ -1,4 +1,10 @@
 ---
+# Items that apply to ALL profiles:
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+---
 spring:
   profiles: subject
 words: I,You,He,She,It
