@@ -3,7 +3,7 @@
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:8761/eureka/,https://eureka007.cfapps.io/eureka/
+      defaultZone: http://localhost:8761/eureka/
 
 ---
 spring:
