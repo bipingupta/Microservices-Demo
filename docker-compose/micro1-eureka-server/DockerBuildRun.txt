@@ -1,2 +1,0 @@
-docker build -t bipin:eureka .
-docker run -t -d -p 8761:8761 --name eureka1 bipin:eureka

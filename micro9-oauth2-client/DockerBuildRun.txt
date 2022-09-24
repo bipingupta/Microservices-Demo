@@ -1,2 +1,0 @@
-docker build -t bipin:oauth2client .
-docker run -t –p 9192:9192 bipin:oauth2client

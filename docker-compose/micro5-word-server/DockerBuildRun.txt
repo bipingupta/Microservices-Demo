@@ -1,2 +1,0 @@
-docker build -t bipin:article .
-docker run -t –p 8083:8083 bipin:article

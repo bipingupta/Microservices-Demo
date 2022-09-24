@@ -1,2 +1,0 @@
-docker build -t bipin:luckyword .
-docker run -t -d –p 8090:8090 bipin:luckyword

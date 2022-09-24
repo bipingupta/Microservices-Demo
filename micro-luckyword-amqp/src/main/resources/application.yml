@@ -1,5 +1,0 @@
-# Note: all properties defined in this file are subject to replacement by the configuration server.
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://192.168.99.100:8010/eureka/

@@ -1,2 +1,0 @@
-docker build -t bipin:config .
-docker run -t -d -p 8888:8888 --name config1 --link eureka1  bipin:config 

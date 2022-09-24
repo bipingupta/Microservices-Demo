@@ -1,2 +1,0 @@
-docker build -t bipin:turbine .
-docker run -t –p 8030:8030 biping:turbine
