@@ -1,0 +1,10 @@
+ansible-playbook main.yml
+
+ansible-playbook  /mariadb/mysql/tasks/main.yml
+
+
+ansible-playbook  /mariadb/mysql/tests/centos-7-test.yml
+
+
+
+ansible-playbook  /mariadb/mysql2/tasks/main.yml

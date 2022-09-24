@@ -1,0 +1,13 @@
+---
+applications:
+- name: eureka-service
+  memory: 512MB
+  instances: 1
+  host: eureka007
+  domain: cfapps.io
+  random-route: true
+  path: target/eureka-server-1.0.jar
+env:
+   SPRING_PROFILES_ACTIVE: cloud
+   DEBUG: "true"
+   debug: "true"

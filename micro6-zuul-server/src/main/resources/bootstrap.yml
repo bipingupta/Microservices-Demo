@@ -1,0 +1,16 @@
+context-path: /
+---  
+security: 
+  oauth2:
+    client:
+      clientId: client
+      clientSecret: secret
+      userAuthorizationUri: http://localhost:9191/oauth2server/oauth/authorize
+      accessTokenUri: http://localhost:9191/oauth2server/oauth/token
+    resource:
+      tokenInfoUri: http://localhost:9191/oauth2server/oauth/check_token
+  basic:
+    enabled: false
+
+
+  

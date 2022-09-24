@@ -1,0 +1,11 @@
+ansible-playbook playbook.yml
+
+ansible-playbook  /mariadb/helloworld/playbook.yml
+
+ansible-playbook -i '127.0.0.1' playbook.yml
+
+ansible-playbook  -i '127.0.0.1' /mariadb/helloworld/playbook.yml
+
+cat hello_world
+
+http://www.practicalweb.co.uk/blog/2015/02/18/first-steps-with-ansible-and-docker/

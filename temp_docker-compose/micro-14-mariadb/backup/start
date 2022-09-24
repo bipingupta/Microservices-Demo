@@ -1,0 +1,102 @@
+#!/bin/bash -ex
+
+if [ -z "$XTRABACKUP_PASSWORD" ]; then
+	echo "XTRABACKUP_PASSWORD not set"
+	exit 1
+fi
+
+CLUSTERCHECK_PASSWORD=$(echo "$XTRABACKUP_PASSWORD" | sha256sum | awk '{print $1;}')
+QCOMM=""
+CLUSTER_NAME=${CLUSTER_NAME:-cluster}
+MYSQL_MODE_ARGS=""
+NODE_ADDRESS=$(ip addr | awk '/inet/ && /ethwe/{sub(/\/.*$/,"",$2); print $2}')
+
+case "$1" in
+	seed)
+		# bootstrapping
+		if [ ! -f /var/lib/mysql/skip-cluster-bootstrapping ]; then
+			if [ -z "$MYSQL_ROOT_PASSWORD" ]; then
+				MYSQL_ROOT_PASSWORD=$(openssl rand -base64 32)
+				echo "MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD"
+			fi
+
+			cat >/tmp/bootstrap.sql <<EOF
+CREATE USER 'xtrabackup'@'localhost' IDENTIFIED BY '$XTRABACKUP_PASSWORD';
+GRANT RELOAD,LOCK TABLES,REPLICATION CLIENT ON *.* TO 'xtrabackup'@'localhost';
+CREATE USER 'clustercheck'@'localhost' IDENTIFIED BY '$CLUSTERCHECK_PASSWORD';
+GRANT PROCESS ON *.* TO 'clustercheck'@'localhost';
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%';
+UPDATE mysql.user SET Password=PASSWORD('$MYSQL_ROOT_PASSWORD') WHERE User='root';
+EOF
+
+			if [ "$MYSQL_DATABASE" ]; then
+				echo "CREATE DATABASE IF NOT EXISTS \`$MYSQL_DATABASE\` ;" >> /tmp/bootstrap.sql
+			fi
+
+			if [ "$MYSQL_USER" -a "$MYSQL_PASSWORD" ]; then
+				echo "CREATE USER '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD' ;" >> /tmp/bootstrap.sql
+				if [ "$MYSQL_DATABASE" ]; then
+					echo "GRANT ALL ON \`$MYSQL_DATABASE\`.* TO '$MYSQL_USER'@'%' ;" >> /tmp/bootstrap.sql
+				fi
+			fi
+			echo "FLUSH PRIVILEGES;" >> /tmp/bootstrap.sql
+
+			MYSQL_MODE_ARGS+=" --init-file=/tmp/bootstrap.sql"
+			touch /var/lib/mysql/skip-cluster-bootstrapping
+
+			echo -n "Bootstrapping cluster. "
+		fi
+
+		MYSQL_MODE_ARGS+=" --wsrep-new-cluster"
+
+		shift 1
+		echo "Starting seed node"
+		;;
+	node)
+		if [ -z "$2" ]; then
+			echo "Missing master node address"
+			exit 1
+		fi
+		ADDRS="$2"
+		SEP=""
+		for ADDR in ${ADDRS//,/ }; do
+			if expr "$ADDR" : '^[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*$' >/dev/null; then
+				QCOMM+="$SEP$ADDR"
+			else
+				QCOMM+="$SEP$(host -t A "$ADDR" | awk '{ print $4 }' | paste -sd ",")"
+			fi
+			SEP=,
+		done
+
+		shift 2
+		echo "Starting node, connecting to qcomm://$QCOMM"
+		;;
+	*)
+		echo "seed|node <othernode>,..."
+		exit 1
+esac
+
+# start processes
+set +e -m
+
+function shutdown () {
+	echo Shutting down
+	test -s /var/run/mysql/mysqld.pid && kill -TERM $(cat /var/run/mysql/mysqld.pid)
+}
+trap shutdown TERM INT
+
+/bin/galera-healthcheck -password="$CLUSTERCHECK_PASSWORD" -pidfile=/var/run/galera-healthcheck.pid -user clustercheck &
+/mysqld.sh --console \
+	$MYSQL_MODE_ARGS \
+	--wsrep_cluster_name="$CLUSTER_NAME" \
+	--wsrep_cluster_address="gcomm://$QCOMM" \
+	--wsrep_node_address="$NODE_ADDRESS:4567" \
+	--wsrep_sst_auth="xtrabackup:$XTRABACKUP_PASSWORD" \
+	--default-time-zone="+00:00" \
+	"$@" 2>&1 &
+wait $!
+RC=$?
+
+test -s /var/run/galera-healthcheck.pid && kill $(cat /var/run/galera-healthcheck.pid)
+
+exit $RC

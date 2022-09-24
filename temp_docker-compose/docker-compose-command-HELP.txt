@@ -1,0 +1,39 @@
+docker-compose build
+docker-compose up
+docker-compose up -d
+docker-compose down
+docker-compose start
+docker-compose stop
+docker-compose rm -f
+docker-compose ps
+-----------------------------------------------------
+Scaling containers running a given service
+docker-compose scale eureka=3
+-----------------------------------------------------
+Healing, i.e., re-running containers that have stopped
+docker-compose up --no-recreate
+======================
+docker-machine stop default
+docker-machine start default
+docker-machine env
+docker-machine ls
+docker-machine ip default
+docker-machine kill default
+======================
+docker ps -a
+docker images
+docker stats
+docker build -t bipin:config .
+docker run -t -d -p 8888:8888 --name config1 --link eureka1  bipin:config 
+docker run -d  helloworld
+docker kill helloworld
+docker stop helloworld
+docker pause 6b785f78b75e
+docker unpause 6b785f78b75e
+docker network inspect bridge
+docker network ls
+To delete all of the containers on your Docker hosts, you can use the following command:
+$ docker rm $(docker ps -aq)
+And to delete all the images on your Docker host, this command will get the job done
+$ docker rmi $(docker images -q -)
+======================

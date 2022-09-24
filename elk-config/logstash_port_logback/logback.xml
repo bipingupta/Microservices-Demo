@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true">
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+	<appender name="STASH"
+		class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+		<destination>127.0.0.1:5000</destination>
+		<encoder
+			class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+			<providers>
+				<mdc /> <!-- MDC variables on the Thread will be written as JSON fields -->
+				<context /> <!--Outputs entries from logback's context -->
+				<logLevel />
+				<loggerName />
+				<pattern>
+					<pattern>
+						{
+						"service_name": "eureka-service-registry"
+						}
+					</pattern>
+				</pattern>
+				<threadName />
+				<message />
+				<logstashMarkers /> <!-- Useful so we can add extra information for specific log lines as Markers -->
+				<arguments /> <!--or through StructuredArguments -->
+			</providers>
+		</encoder>
+	</appender>
+	
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<!-- Log message format -->
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+	
+	<root level="INFO">
+		<appender-ref ref="STDOUT" />
+	</root>
+	
+</configuration>

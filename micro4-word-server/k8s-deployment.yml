@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-boot-example
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: spring-boot-example
+  template:
+    metadata:
+      labels:
+        app: spring-boot-example
+    spec:
+      containers:
+        - name: spring-boot-example
+          image: skaffold-spring-boot-example
+          ports:
+            - containerPort: 8080

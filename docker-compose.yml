@@ -1,0 +1,68 @@
+###############################################################
+### Default configuration for development environment.      ###
+###############################################################
+version: '2'
+services:
+  eureka:
+    build: ./micro1-eureka-server
+    ports:
+    - "8761:8761"
+##    environment:
+###       EUREKA_INSTANCE_PREFER_IP_ADDRESS: "true"
+###      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://192.168.99.100:8761/eureka/
+    restart: always
+  config:
+    build: ./micro2-config-server
+    ports:
+    - "8888:8888"
+    links:
+      - eureka
+    restart: always
+  subject:
+    build: ./micro3-word-server
+    ports:
+      - "8081:8081"
+    links:
+      - eureka
+      - config
+    restart: always
+  verb:
+    build:
+       context: ./micro3-word-server
+       dockerfile: DockerfileVerb
+    ports:
+      - "8082:8082"
+    links:
+      - eureka
+      - config
+    restart: always
+  article:
+    build:
+       context: ./micro3-word-server
+       dockerfile: DockerfileArticle
+    ports:
+      - "8083:8083"
+    links:
+      - eureka
+      - config
+    restart: always
+  adjective:
+    build:
+       context: ./micro3-word-server
+       dockerfile: DockerfileAdjective
+    ports:
+      - "8084:8084"
+    links:
+      - eureka
+      - config
+    restart: always
+  noun:
+    build:
+       context: ./micro3-word-server
+       dockerfile: DockerfileNoun
+    ports:
+      - "8085:8085"
+    links:
+      - eureka
+      - config
+    restart: always

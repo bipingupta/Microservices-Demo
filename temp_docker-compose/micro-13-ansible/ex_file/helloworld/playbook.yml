@@ -1,0 +1,11 @@
+---
+# This playbook uses the ping module to test connectivity to Linux hosts
+- name: Ping
+  hosts: localhost
+  remote_user: vagrant 
+
+  tasks: 
+  - name: ping 
+    ping: 
+  - name: echo 
+    shell: echo Hello World! > hello_world

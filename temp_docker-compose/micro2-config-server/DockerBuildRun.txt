@@ -1,0 +1,7 @@
+docker build -t bipin:config .
+docker run -t -d -p 8888:8888 --name config1 --link eureka1  bipin:config 
+
+REM docker tag bipin:config bipingupta007/config
+REM docker push bipingupta007/config
+
+REM docker service create -p 8761:8761 --name eureka --network my_network bipingupta007/eureka

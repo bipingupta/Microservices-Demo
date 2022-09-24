@@ -1,0 +1,2 @@
+docker build -t bipin:subject .
+docker run -t –p 8081:8081 bipin:subject

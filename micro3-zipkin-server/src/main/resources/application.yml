@@ -1,0 +1,30 @@
+---
+server:  
+  port: ${PORT:9411}
+---
+spring:  
+  application:
+    name: zipkin-server
+  output:
+    ansi:
+      enabled: always 
+---
+logging:
+  path: D:\logs\zipkin.log
+  pattern:
+    level: INFO
+---   
+debug: false
+---
+spring:
+  main:
+    allow-bean-definition-overriding: true
+---
+management:
+  metrics:
+    web:
+      server:
+        auto-time-requests: false 
+  
+        
+

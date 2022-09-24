@@ -1,0 +1,44 @@
+---
+server:  
+  port: ${PORT:8080}
+---
+spring:  
+  application:
+    name: zuul-gateway
+  output:
+    ansi:
+      enabled: always 
+---
+eureka:
+#  instance:
+#   hostname: localhost
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: http://${SERVER_IP:localhost}:8761/eureka/
+---
+logging:
+  path: D:\logs\zuul
+  pattern:
+    level: INFO
+---
+logging:
+  level:
+    com.netflix.discovery: trace
+---
+# Allow thymeleaf template changes to reload:
+spring.thymeleaf.cache: false
+---
+# Zuul-proxied services can be found by calling /services/subject, /services/verb, etc.
+zuul:
+  prefix: /services
+---  
+zuul:
+  routes:
+    serviceA:
+      path: /greetings-api/**
+      serviceId: greeting-service
+    serviceB:
+      path: /tasks-api/**
+      serviceId: task-service

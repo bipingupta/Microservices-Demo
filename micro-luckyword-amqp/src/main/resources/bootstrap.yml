@@ -1,0 +1,13 @@
+---
+server:
+  port: 8002
+---
+spring:
+  application:
+    name: lucky-word-client
+---
+spring:
+  cloud:
+    config:
+      fail-fast: true
+      uri: http://${SERVER_IP:localhost}:8888

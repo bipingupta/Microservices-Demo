@@ -1,0 +1,18 @@
+// https://howtodoinjava.com/spring-boot2/oauth2-auth-server/
+
+// GET AUTHORIZATION Code
+// http://localhost:9191/oauth/authorize?client_id=clientapp&response_type=code&scope=read_profile_info
+// use “humptydumpty” and “123456”
+// curl -X POST --user clientapp:123456 http://localhost:9191/oauth/token  -H "content-type: application/x-www-form-urlencoded" -d "code=ggEC0K&grant_type=authorization_code&redirect_uri=http%3A%2F%2Flocalhost%3A9191%2Flogin"
+// curl -X GET http://localhost:9191/api/users/me  -H "authorization: Bearer 394abaa2-76f1-4f92-aa61-670a61f579e8"
+
+
+http://localhost:9191/oauth/authorize?response_type=code&client_id=clientapp&scope=user_info&state=uMeNopVEZrMCu7Ex9-ZjgEbfiGz36rlGaKiLETaTIF8%3D&redirect_uri=http://localhost:9192/oauth2/authorization/custom-client
+
+http://localhost:9191/oauth/authorize?response_type=code&client_id=clientapp&scope=user_info&state=5u1YA43ekQjKm61lMG9dzdgg_DX8C8Bo22UhJo2KiFw%3D&redirect_uri=http://localhost:9191/login
+
+
+
+Pearson - AWS Certified Solutions Architect - Associate (SAA-C01) Cert Guide (2019)
+
+Copyright ©  by Pearson Education, Inc.

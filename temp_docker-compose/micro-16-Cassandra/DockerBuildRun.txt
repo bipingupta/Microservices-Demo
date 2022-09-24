@@ -1,0 +1,8 @@
+docker build -t bipin:cassandra .
+docker run -t bipin:cassandra
+
+Run arbitrary commands inside an existing container.
+docker exec -it <container-name> bash
+docker inspect <container-name>
+
+

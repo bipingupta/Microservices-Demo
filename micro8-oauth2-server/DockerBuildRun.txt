@@ -1,0 +1,2 @@
+docker build -t bipin:oauth2 .
+docker run -t –p 9191:9191 bipin:oauth2

@@ -1,0 +1,15 @@
+docker build -t bipin:eureka .
+docker run -t -d -p 8761:8761 --name eureka1 bipin:eureka
+
+REM docker images
+REM docker login --username bipingupta007 --password thunder007
+REM docker tag bipin:eureka bipingupta007/eureka
+REM docker push bipingupta007/eureka
+
+REM docker commit 99e078826312 bipin:eureka
+REM docker run -it bipin:eureka
+
+
+
+docker pull cassandra
+docker run -t  --name cassandra  -d cassandra:cassandra

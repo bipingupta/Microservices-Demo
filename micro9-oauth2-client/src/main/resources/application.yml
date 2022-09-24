@@ -1,0 +1,55 @@
+---
+server:
+  port: 9192
+---
+spring:  
+  application:
+    name: oauth2client
+  output:
+    ansi:
+      enabled: always 
+---
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: false
+    serviceUrl:
+      defaultZone: http://${SERVER_IP:localhost}:8761/eureka/
+---
+logging:
+  path: D:\logs\oauth2Cli.log
+  pattern:
+    level: INFO
+---   
+debug: false
+---
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          custom-client:
+            client-id: clientapp
+            client-secret: 123456
+            client-name: OAuth2 Client
+            scope: read_profile_info
+            provider: custom-provider
+#           redirect-uri: http://localhost:9191/login
+            redirect-uri: http://localhost:9192/login/oauth2/code/
+            client-authentication-method: basic
+            authorization-grant-type: authorization_code
+        provider:
+          custom-provider:
+            token-uri: http://localhost:9191/oauth/token
+            authorization-uri:  http://localhost:9191/oauth/authorize
+            user-info-uri: http://localhost:9191/api/users/me
+            user-name-attribute: name
+---
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+  thymeleaf:
+    cache: false  
+      

@@ -1,0 +1,11 @@
+docker-compose up
+
+Step 6: The Mesos webpage :
+http://192.168.99.100:5050
+
+Step 7: Goto Marathon’s webpage to start a job
+The Marathon webpage lets you schedule long running tasks onto the Meso Slave container. 
+http://192.168.99.100:8080
+
+
+docker commit cff9f1f868b0 jenkins-1

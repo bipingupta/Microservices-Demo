@@ -1,0 +1,40 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: stock-gen
+  name: stock-gen
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: stock-gen
+    spec:
+      containers:
+      - name: stock-gen
+        image: quay.io/mhausenblas/stock-gen:0.3
+        env:
+        - name: DOK_STOCKGEN_PORT
+          value: "9999"
+        - name: DOK_STOCKGEN_CRASHEPOCH
+          value: "100"
+        ports:
+        - containerPort: 9999
+          protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: stock-gen
+  name: stock-gen
+spec:
+  type: ClusterIP
+  ports:
+  - name: http
+    port: 9999
+    protocol: TCP
+    targetPort: 9999
+  selector:
+    app: stock-gen

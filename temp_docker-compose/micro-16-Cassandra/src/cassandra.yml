@@ -1,0 +1,8 @@
+cluster_name: 'JC Cluster'
+num_tokens: 256
+seed_provider:
+    - class_name: org.apache.cassandra.locator.SimpleSeedProvider
+        - seeds: 10.0.0.1, 10.0.0.2
+listen_address: 10.0.0.1
+rpc_address: 10.0.0.1
+endpoint_snitch: GossipingPropertyFileSnitch

@@ -1,0 +1,14 @@
+docker build -t bipin:CentOSAnsible .
+
+REM docker run -t bipin:ansible
+
+docker run --rm -it -v /mariadb:/mariadb  bipin:CentOSAnsible /bin/bash
+
+Run arbitrary commands inside an existing container.
+docker exec -it <container-name> bash
+docker inspect <container-name>
+
+
+# docker commit <container-name> asible-mariadb
+
+

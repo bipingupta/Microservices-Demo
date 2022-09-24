@@ -1,0 +1,59 @@
+version: '3'
+services:
+  zookeeper:
+    image: zookeeper
+    container_name: zookeeper
+    # restart: always
+    network_mode: host
+    ports:
+      - "2181:2181"
+  mesos-master:
+    image: mesosphere/mesos-master:1.2.1
+    container_name: mesos-master
+    network_mode: host
+    # restart: always
+    environment:
+      - MESOS_ZK=zk://127.0.0.1:2181/mesos
+      - MESOS_HOSTNAME=192.168.99.100
+      - MESOS_IP=192.168.99.100
+      - MESOS_QUORUM=1
+      - MESOS_LOG_DIR=/var/log/mesos/master
+      - MESOS_WORK_DIR=/var/lib/mesos/master
+    depends_on:
+      - zookeeper
+    ports:
+      - "5050:5050"
+  mesos-slave:
+    image: mesosphere/mesos-slave:1.2.1
+    container_name: mesos-slave-1
+    network_mode: host
+    # restart: always
+    privileged: true
+    environment:
+      - MESOS_MASTER=zk://127.0.0.1:2181/mesos
+      - MESOS_HOSTNAME=192.168.99.100
+      - MESOS_IP=192.168.99.100
+      - MESOS_PORT=5051
+      - MESOS_CONTAINERIZERS=docker,mesos
+      - MESOS_WORK_DIR=/tmp
+      - MESOS_LOG_DIR=/var/log/mesos/slave
+      - MESOS_EXECUTOR_REGISTRATION_TIMEOUT=10mins
+      - MESOS_RESOURCES=cpus:2;mem:2048;disk:20480;ports(*):[11000-11999]
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /usr/local/bin/docker:/usr/bin/docker
+      - /sys:/sys:ro
+    depends_on:
+      - zookeeper
+  marathon:
+    image: mesosphere/marathon:v1.4.5
+    container_name: marathon
+    network_mode: host
+    environment:
+      - MARATHON_MASTER=zk://127.0.0.1:2181/mesos
+    ports:
+      - "8080:8080"
+    depends_on:
+      - zookeeper
+###Environment

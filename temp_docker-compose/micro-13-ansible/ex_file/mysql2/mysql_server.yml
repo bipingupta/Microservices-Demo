@@ -1,0 +1,4 @@
+---
+- hosts: localhost
+  roles:
+  - {role: mysql, mysql_db: [{name: sql_first_db}], mysql_users: [{name: sql1, pass: papa123, priv: "*.*:ALL"}]}

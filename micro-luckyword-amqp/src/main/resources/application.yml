@@ -1,0 +1,7 @@
+# Note: all properties defined in this file are subject to replacement by the configuration server.
+eureka:
+  client: 
+    registerWithEureka: true
+    fetchRegistry: false
+    service-url:
+       defaultZone: http://${SERVER_IP:localhost}:${PORT:8761}/eureka/
