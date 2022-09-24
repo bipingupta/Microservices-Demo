@@ -1,7 +1,20 @@
-# Properties active for ALL profiles:
 ---
-server:
+server:  
   port: ${PORT:8888}
+---
+spring:  
+  application:
+    name: config-server
+  output:
+    ansi:
+      enabled: always 
+---
+logging:
+  path: D:\logs\config.log
+  pattern:
+    level: INFO
+---   
+debug: false
 ---
 spring:
   cloud:
