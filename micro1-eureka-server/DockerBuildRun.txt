@@ -1,2 +1,17 @@
 docker build -t bipin:eureka .
 docker run -t -d -p 8761:8761 --name eureka1 bipin:eureka
+
+docker tag bipin:eureka bipingupta007/eureka
+docker push bipingupta007/eureka
+
+mvn clean package docker:build
+mvn docker:build
+mvn docker:push
+
+Description     Goal
+docker:build 	Build images
+docker:logs 	Show container logs
+docker:push 	Push images to a registry
+docker:remove 	Remove images from local docker host
+docker:start 	Create and start containers
+docker:stop 	Stop and destroy containers

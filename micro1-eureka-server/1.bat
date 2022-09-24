@@ -1,4 +1,4 @@
-start /b  mvn spring-boot:run
+mvn spring-boot:run
 REM start /b  mvn spring-boot:run -Dspring.profiles.active=primary
 REM mvn clean install
 REM mvn package

@@ -1,5 +1,0 @@
-# Properties active for ALL profiles:
----
-spring:
-  application:
-    name: eurekaserver
